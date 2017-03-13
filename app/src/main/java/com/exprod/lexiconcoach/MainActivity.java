@@ -19,6 +19,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.exprod.lexiconcoach.fragments.StatisticFragment;
+import com.exprod.lexiconcoach.fragments.VocabularyListFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -129,32 +132,38 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private static final int TABS_COUNT = 2;
+
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+                case VocabularyListFragment.POSITION_IN_SECTION:
+                    return VocabularyListFragment.newInstance();
+                case StatisticFragment.POSITION_IN_SECTION:
+                    return StatisticFragment.newInstance();
+
+            }
+            return null;
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return TABS_COUNT;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
+                case VocabularyListFragment.POSITION_IN_SECTION:
+                    return getString(VocabularyListFragment.TITLE_RES_ID);
+                case StatisticFragment.POSITION_IN_SECTION:
+                    return getString(StatisticFragment.TITLE_RES_ID);
             }
             return null;
         }
