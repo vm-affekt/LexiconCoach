@@ -4,10 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.exprod.lexiconcoach.fragments.StatisticFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circle"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:width="@dimen/size_percent_text"
+        android:height="@dimen/size_percent_text"
+        android:gravity="center"
+        android:text="100%" />
+
 
 </FrameLayout>

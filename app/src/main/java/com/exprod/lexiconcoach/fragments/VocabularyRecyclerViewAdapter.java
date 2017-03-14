@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.exprod.lexiconcoach.R;
 import com.exprod.lexiconcoach.fragments.VocabularyListFragment.OnListFragmentInteractionListener;
-import com.exprod.lexiconcoach.fragments.dummy.DummyContent;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_vocabulary, parent, false);
+                .inflate(R.layout.vocabulary_item, parent, false);
         return new ViewHolder(view);
     }
 
