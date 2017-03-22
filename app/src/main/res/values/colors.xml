@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#673ab7</color>
+    <color name="colorPrimaryDark">#512da8</color>
     <color name="colorAccent">#FF4081</color>
-
+    <color name="windowBackground">#d1c4e9</color>
+    <color name="cardBackground">#ede7f6</color>
     <!-- Круговой фон для значений -->
-    <color name="circleStroke">#A6ABB0</color>
+    <color name="circleStroke">#b388ff</color>
 
 </resources>

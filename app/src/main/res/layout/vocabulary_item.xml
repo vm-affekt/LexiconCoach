@@ -1,20 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    card_view:cardBackgroundColor="?attr/cardBackgroundColor"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="8dp"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvCompletedPercent"
+                android:background="@drawable/bg_circle_completed"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_width="@dimen/size_completed_percent_text"
+                android:layout_height="@dimen/size_completed_percent_text"
+                android:gravity="center"
+                />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvLastRun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/tvTitle"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                />
+
+
+            <FrameLayout
+                android:id="@+id/flMistakesCount"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/info_block_height"
+                android:layout_below="@id/tvLastRun"
+                android:layout_marginTop="@dimen/info_block_top_margin"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/tvMistakesCount"
+                    style="@style/VocabularyInfoTextView"
+                    android:layout_gravity="top|center_horizontal"
+                    android:background="@drawable/bg_circle_mistakes_info"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:text="@string/mistake_caption"
+                    android:textColor="@android:color/black" />
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/flWordsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/info_block_height"
+                android:layout_below="@id/tvLastRun"
+                android:layout_marginTop="@dimen/info_block_top_margin"
+                android:layout_toLeftOf="@id/flMistakesCount"
+                android:layout_marginRight="@dimen/info_block_horizontal_margin"
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/tvTotalWordsCount"
+                    style="@style/VocabularyInfoTextView"
+                    android:layout_gravity="top|center_horizontal"
+                    android:background="@drawable/bg_circle_completed"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:text="@string/words_count_caption"
+                    android:textColor="@android:color/black"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/flRunCount"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/info_block_height"
+                android:layout_below="@id/tvLastRun"
+                android:layout_marginTop="@dimen/info_block_top_margin"
+                android:layout_toRightOf="@id/flMistakesCount"
+                android:layout_marginLeft="@dimen/info_block_horizontal_margin"
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/tvRunCount"
+                    style="@style/VocabularyInfoTextView"
+                    android:layout_gravity="top|center_horizontal"
+                    android:background="@drawable/bg_circle_run_count_info"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:text="@string/attempts_caption"
+                    android:textColor="@android:color/black"
+                    />
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

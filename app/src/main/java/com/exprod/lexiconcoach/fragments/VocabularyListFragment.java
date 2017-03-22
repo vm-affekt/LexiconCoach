@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import com.exprod.lexiconcoach.R;
 import com.exprod.lexiconcoach.fragments.dummy.DummyContent;
 import com.exprod.lexiconcoach.fragments.dummy.DummyContent.DummyItem;
+import com.exprod.lexiconcoach.viewmodels.VocabularyItemVM;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A fragment representing a list of Items.
@@ -24,6 +28,8 @@ public class VocabularyListFragment extends Fragment {
     public static final int POSITION_IN_SECTION = 0;
 
     private OnListFragmentInteractionListener mListener;
+
+    @BindView(R.id.rvVocabularies) protected RecyclerView mRvVocabularies;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -51,16 +57,11 @@ public class VocabularyListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_vocabulary, container, false);
+        ButterKnife.bind(this, view);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        mRvVocabularies.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mRvVocabularies.setAdapter(new VocabularyRecyclerViewAdapter(VocabularyItemVM.getTestList(), mListener));
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-            recyclerView.setAdapter(new VocabularyRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
         return view;
     }
 

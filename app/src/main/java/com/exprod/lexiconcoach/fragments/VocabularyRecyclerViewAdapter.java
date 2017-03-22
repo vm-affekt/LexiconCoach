@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.exprod.lexiconcoach.R;
 import com.exprod.lexiconcoach.fragments.VocabularyListFragment.OnListFragmentInteractionListener;
+import com.exprod.lexiconcoach.viewmodels.VocabularyItemVM;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ import static com.exprod.lexiconcoach.fragments.dummy.DummyContent.DummyItem;
  */
 public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<VocabularyRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<VocabularyItemVM> mItems;
     private final OnListFragmentInteractionListener mListener;
 
-    public VocabularyRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public VocabularyRecyclerViewAdapter(List<VocabularyItemVM> items, OnListFragmentInteractionListener listener) {
+        mItems = items;
         mListener = listener;
     }
 
@@ -37,9 +38,18 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = mItems.get(position);
+        holder.mTvTitle.setText(mItems.get(position).getTitle());
+        String lastRunDateString = mItems.get(position).getLastRunDateString();
+        if (lastRunDateString != null){
+            holder.mTvLastRun.setText(holder.mView.getContext().getString(R.string.last_run_format, lastRunDateString));
+        }else{
+            holder.mTvLastRun.setText(R.string.last_run_never);
+        }
+        holder.mTvCompletedPercent.setText(mItems.get(position).getCompletedPercent());
+        holder.mTvTotalWordsCount.setText(mItems.get(position).getTotalWordsCount().toString());
+        holder.mTvMistakesCount.setText(mItems.get(position).getMistakesCount().toString());
+        holder.mTvRunCount.setText(mItems.get(position).getRunCount().toString());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +57,7 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    //mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
         });
@@ -55,25 +65,28 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mItems.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mTvTitle;
+        public final TextView mTvLastRun;
+        public final TextView mTvCompletedPercent;
+        public final TextView mTvTotalWordsCount;
+        public final TextView mTvMistakesCount;
+        public final TextView mTvRunCount;
+        public VocabularyItemVM mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            mTvLastRun = (TextView) view.findViewById(R.id.tvLastRun);
+            mTvCompletedPercent = (TextView) view.findViewById(R.id.tvCompletedPercent);
+            mTvTotalWordsCount = (TextView) view.findViewById(R.id.tvTotalWordsCount);
+            mTvMistakesCount = (TextView) view.findViewById(R.id.tvMistakesCount);
+            mTvRunCount = (TextView) view.findViewById(R.id.tvRunCount);
         }
     }
 }
