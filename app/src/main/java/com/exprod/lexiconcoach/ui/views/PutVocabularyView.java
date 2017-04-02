@@ -13,6 +13,7 @@ public interface PutVocabularyView {
     void setVocabularyId(Long vocabularyId);
     Long getVocabularyId();
     void setFields(PutVocabularyVM model);
+    void showEmptyTitleError();
     String getTitleField();
     String getDescriptionField();
 

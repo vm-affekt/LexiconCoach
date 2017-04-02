@@ -52,7 +52,6 @@ public class PutVocabularyActivity extends AppCompatActivity {
     }
 
     public void onSaveActionClicked(MenuItem item){
-        Toast.makeText(this, "onSaveActionClicked()", Toast.LENGTH_SHORT).show();
         getFragment().onSaveVocabulary();
     }
 

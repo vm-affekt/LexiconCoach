@@ -18,6 +18,7 @@ import com.exprod.lexiconcoach.viewmodels.PutVocabularyVM;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -32,6 +33,8 @@ public class PutVocabularyFragment extends Fragment implements PutVocabularyView
 
     @BindView(R.id.etTitle) protected EditText mEtTitle;
     @BindView(R.id.etDescription) protected EditText mEtDescription;
+
+    @BindString(R.string.empty_title_error_message) protected String emptyTitleErrorMessage;
 
     @Nullable
     private Long mVocabularyId = null;
@@ -73,6 +76,9 @@ public class PutVocabularyFragment extends Fragment implements PutVocabularyView
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
+        if (savedInstanceState != null && savedInstanceState.containsKey(ARG_VOCABULARY_ID)){
+            mVocabularyId = savedInstanceState.getLong(ARG_VOCABULARY_ID);
+        }
         return view;
     }
 
@@ -100,6 +106,12 @@ public class PutVocabularyFragment extends Fragment implements PutVocabularyView
         mEtTitle.setText(model.getTitle());
         mEtDescription.setText(model.getTitle());
     }
+
+    @Override
+    public void showEmptyTitleError() {
+        Toast.makeText(getContext(), emptyTitleErrorMessage, Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public String getTitleField() {

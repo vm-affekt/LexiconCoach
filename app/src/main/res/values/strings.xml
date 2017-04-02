@@ -23,4 +23,5 @@
     <string name="vocabulary_description_label">Описание:</string>
     <string name="vocabulary_description_hint">Введите здесь краткое описание вашего словаря (Необязательно)</string>
     <string name="save_menu_item">Сохранить</string>
+    <string name="empty_title_error_message">Поле \'Название\' не должно быть пустым!</string>
 </resources>

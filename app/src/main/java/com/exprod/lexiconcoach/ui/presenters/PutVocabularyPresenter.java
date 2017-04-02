@@ -5,13 +5,11 @@ import android.os.Bundle;
 
 import com.exprod.lexiconcoach.LexiconCoachApp;
 import com.exprod.lexiconcoach.mvpmodels.VocabularyMvpModel;
-import com.exprod.lexiconcoach.storage.entities.VocabularyEntity;
 import com.exprod.lexiconcoach.ui.views.PutVocabularyView;
 import com.exprod.lexiconcoach.viewmodels.PutVocabularyVM;
 
 import javax.inject.Inject;
 
-import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -26,7 +24,11 @@ public class PutVocabularyPresenter extends BasePresenter<PutVocabularyView> {
 
 
     private PutVocabularyVM makeViewModel(){
-        return new PutVocabularyVM(getView().getVocabularyId(), getView().getTitleField(), getView().getDescriptionField());
+        return new PutVocabularyVM(
+                getView().getVocabularyId(),
+                getView().getTitleField().trim(),
+                getView().getDescriptionField()
+        );
     }
 
     public PutVocabularyPresenter(Context context) {
@@ -51,12 +53,18 @@ public class PutVocabularyPresenter extends BasePresenter<PutVocabularyView> {
 
     public void onSaveVocabulary(){
         if (isViewNotNull()){
-            Subscription subscription = mVocabularyMvpModel.putVocabulary(makeViewModel())
+            PutVocabularyVM model = makeViewModel();
+            if (model.getTitle().isEmpty()) {
+                getView().showEmptyTitleError();
+                return;
+            }
+            mVocabularyMvpModel.putVocabulary(makeViewModel())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> {
                         getView().onVocabularySaved();
                     });
-            addSubscription(subscription);
+
+
         }
     }
 

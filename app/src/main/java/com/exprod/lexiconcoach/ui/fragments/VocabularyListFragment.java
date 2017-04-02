@@ -86,11 +86,14 @@ public class VocabularyListFragment extends Fragment implements VocabularyListVi
                 startActivity(new Intent(getContext(), PutVocabularyActivity.class));
             }
         });
-
-        requestVocabularyList();
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestVocabularyList();
+    }
 
     @Override
     public void onAttach(Context context) {
