@@ -52,7 +52,9 @@ public class PutVocabularyFragment extends Fragment implements PutVocabularyView
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(ARG_VOCABULARY_ID, mVocabularyId);
+        if (mVocabularyId != null) {
+            outState.putLong(ARG_VOCABULARY_ID, mVocabularyId);
+        }
     }
 
     @Nullable

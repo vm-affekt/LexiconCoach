@@ -17,4 +17,10 @@
     <string name="words_count_caption">Слов</string>
     <string name="attempts_caption">Попыток</string>
     <string name="title_activity_put_vocabulary">Добавление словаря</string>
+
+    <string name="vocabulary_title_hint">(Например, \'Животные\')</string>
+    <string name="vocabulary_title_label">Название:</string>
+    <string name="vocabulary_description_label">Описание:</string>
+    <string name="vocabulary_description_hint">Введите здесь краткое описание вашего словаря (Необязательно)</string>
+    <string name="save_menu_item">Сохранить</string>
 </resources>

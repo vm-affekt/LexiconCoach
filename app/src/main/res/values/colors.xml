@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#673ab7</color>
     <color name="colorPrimaryDark">#512da8</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#651fff</color>
     <color name="windowBackground">#d1c4e9</color>
+    <color name="windowBackgroundLight">#ede7f6</color>
     <color name="cardBackground">#ede7f6</color>
     <!-- Круговой фон для значений -->
     <color name="circleStroke">#b388ff</color>

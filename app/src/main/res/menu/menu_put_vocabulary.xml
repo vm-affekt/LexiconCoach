@@ -5,7 +5,8 @@
       tools:context=".ui.activities.PutVocabularyActivity">
     <item android:id="@+id/save_action"
           android:orderInCategory="100"
-          android:title="Сохранить"
+          android:icon="@drawable/ic_check"
+          android:title="@string/save_menu_item"
           android:onClick="onSaveActionClicked"
           app:showAsAction="ifRoom"
         />
