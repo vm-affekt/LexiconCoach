@@ -16,4 +16,5 @@
     <string name="mistake_caption">Ошибок</string>
     <string name="words_count_caption">Слов</string>
     <string name="attempts_caption">Попыток</string>
+    <string name="title_activity_put_vocabulary">Добавление словаря</string>
 </resources>

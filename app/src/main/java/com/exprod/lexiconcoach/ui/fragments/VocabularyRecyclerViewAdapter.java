@@ -1,4 +1,4 @@
-package com.exprod.lexiconcoach.fragments;
+package com.exprod.lexiconcoach.ui.fragments;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,21 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.exprod.lexiconcoach.R;
-import com.exprod.lexiconcoach.fragments.VocabularyListFragment.OnListFragmentInteractionListener;
+import com.exprod.lexiconcoach.ui.fragments.VocabularyListFragment.OnListFragmentInteractionListener;
 import com.exprod.lexiconcoach.viewmodels.VocabularyItemVM;
 
 import java.util.List;
 
-import static com.exprod.lexiconcoach.fragments.dummy.DummyContent.DummyItem;
-
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<VocabularyRecyclerViewAdapter.ViewHolder> {
 
-    private final List<VocabularyItemVM> mItems;
+    private List<VocabularyItemVM> mItems;
     private final OnListFragmentInteractionListener mListener;
 
     public VocabularyRecyclerViewAdapter(List<VocabularyItemVM> items, OnListFragmentInteractionListener listener) {
@@ -46,7 +39,7 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
         }else{
             holder.mTvLastRun.setText(R.string.last_run_never);
         }
-        holder.mTvCompletedPercent.setText(mItems.get(position).getCompletedPercent());
+        holder.mTvCompletedPercent.setText(mItems.get(position).getCompletedPercent() + "%");
         holder.mTvTotalWordsCount.setText(mItems.get(position).getTotalWordsCount().toString());
         holder.mTvMistakesCount.setText(mItems.get(position).getMistakesCount().toString());
         holder.mTvRunCount.setText(mItems.get(position).getRunCount().toString());
@@ -61,6 +54,11 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
                 }
             }
         });
+    }
+
+    public void setItems(List<VocabularyItemVM> items){
+        mItems = items;
+        notifyDataSetChanged();
     }
 
     @Override
