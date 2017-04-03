@@ -76,4 +76,15 @@ public class VocabularyEntity {
     public String getLastUpdateDate() {
         return lastUpdateDate;
     }
+
+    @Override
+    public String toString() {
+        return "VocabularyEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", creationDate='" + creationDate + '\'' +
+                ", lastUpdateDate='" + lastUpdateDate + '\'' +
+                '}';
+    }
 }

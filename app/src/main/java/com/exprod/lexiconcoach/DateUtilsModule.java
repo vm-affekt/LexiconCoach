@@ -16,16 +16,20 @@ import dagger.Provides;
 
 @Module
 public class DateUtilsModule {
+    public static final String ITEM_DATE_FORMAT_NAME = "itemDateFormat";
+    public static final String SQLITE_DATE_TIME_FORMAT_NAME = "SQLiteDateTimeFormat";
 
     @Provides
     @Singleton
-    public DateFormat provideShortDateFormat(){
+    @Named(ITEM_DATE_FORMAT_NAME)
+    public DateFormat provideItemDateFormat(){
         return new SimpleDateFormat("MM.dd.yyyy");
     }
 
     @Provides
     @Singleton
-    public Calendar provideCalendar(){
-        return Calendar.getInstance();
+    @Named(SQLITE_DATE_TIME_FORMAT_NAME)
+    public DateFormat provideSQLiteDateTimeFormat(){
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 }

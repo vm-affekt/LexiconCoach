@@ -1,5 +1,7 @@
 package com.exprod.lexiconcoach.storage.meta;
 
+import android.util.Log;
+
 import com.pushtorefresh.storio.sqlite.queries.Query;
 
 /**
@@ -18,6 +20,8 @@ public class VocabulariesMetaTable {
 
     public static final Query QUERY_ALL = Query.builder()
             .table(TABLE_NAME)
+            .orderBy("datetime(" + LAST_UPDATE_DATE_COLUMN + ") desc")
+            .orderBy("datetime(" + CREATION_DATE_COLUMN + ") desc")
             .build();
 
     public static String getCreateTableQuery(){

@@ -1,6 +1,7 @@
 package com.exprod.lexiconcoach.repositories;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.exprod.lexiconcoach.LexiconCoachApp;
 import com.exprod.lexiconcoach.storage.entities.RunResultEntity;
@@ -12,6 +13,7 @@ import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
