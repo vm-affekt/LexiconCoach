@@ -14,6 +14,7 @@ public interface PutVocabularyView {
     Long getVocabularyId();
     void setFields(PutVocabularyVM model);
     void showEmptyTitleError();
+    void showVocabularyExistsError(String vocabularyTitle);
     String getTitleField();
     String getDescriptionField();
 

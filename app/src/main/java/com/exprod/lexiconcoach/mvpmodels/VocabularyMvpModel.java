@@ -18,6 +18,7 @@ import rx.Single;
 public interface VocabularyMvpModel {
     Observable<List<VocabularyItemVM>> getVocabularyItems();
     Observable<PutVocabularyVM> getPutVocabularyVM(Long vocabularyId);
-    Completable putVocabulary(PutVocabularyVM model);
+    Completable addVocabulary(PutVocabularyVM model);
+    Completable editVocabulary(PutVocabularyVM model);
 
 }

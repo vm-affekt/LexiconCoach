@@ -17,6 +17,7 @@ public interface VocabularyRepository {
     Single<List<VocabularyEntity>> getAllVocabularies();
     Completable putVocabulary(VocabularyEntity vocabulary);
     Single<VocabularyEntity> getVocabulary(Long vocabularyId);
+    Single<Boolean> isVocabularyExists(String title);
     Single<RunResultEntity> getLastRunResultFor(Long vocabularyId);
 
 }

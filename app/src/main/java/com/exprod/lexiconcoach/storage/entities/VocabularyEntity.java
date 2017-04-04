@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.exprod.lexiconcoach.storage.meta.VocabulariesMetaTable;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
+import com.pushtorefresh.storio.sqlite.queries.Query;
 
 /**
  * Created by VLAD on 26.03.2017.
@@ -13,6 +14,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
 
 @StorIOSQLiteType(table = VocabulariesMetaTable.TABLE_NAME)
 public class VocabularyEntity {
+
     @Nullable
     @StorIOSQLiteColumn(name = VocabulariesMetaTable.ID_COLUMN, key = true)
     Long id;

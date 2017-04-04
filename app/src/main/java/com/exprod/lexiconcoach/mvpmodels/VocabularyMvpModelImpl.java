@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.exprod.lexiconcoach.DateUtilsModule;
 import com.exprod.lexiconcoach.LexiconCoachApp;
+import com.exprod.lexiconcoach.exceptions.VocabularyAlreadyExists;
 import com.exprod.lexiconcoach.repositories.VocabularyRepository;
 import com.exprod.lexiconcoach.storage.entities.VocabularyEntity;
 import com.exprod.lexiconcoach.viewmodels.PutVocabularyVM;
@@ -20,6 +21,7 @@ import javax.inject.Named;
 
 import rx.Completable;
 import rx.Observable;
+import rx.Single;
 
 
 /**
@@ -27,6 +29,7 @@ import rx.Observable;
  */
 
 public class VocabularyMvpModelImpl implements VocabularyMvpModel {
+    private static final String LOG_TAG = "VOC_MODEL_TAG";
 
     @Inject
     @Named(DateUtilsModule.ITEM_DATE_FORMAT_NAME)
@@ -82,8 +85,14 @@ public class VocabularyMvpModelImpl implements VocabularyMvpModel {
     }
 
     @Override
-    public Completable putVocabulary(PutVocabularyVM model) {
-        return mRepository.putVocabulary(createVocabularyFrom(model));
+    public Completable addVocabulary(PutVocabularyVM model) {
+        return mRepository.isVocabularyExists(model.getTitle())
+                .flatMap(b -> !b ? Single.just(b) : Single.error(new VocabularyAlreadyExists(model.getTitle()))) // TODO По возможности найти другое решение выбросить исключение здесь...
+                .flatMapCompletable(___ -> mRepository.putVocabulary(createVocabularyFrom(model)));
     }
 
+    @Override
+    public Completable editVocabulary(PutVocabularyVM model) {
+        return mRepository.putVocabulary(createVocabularyFrom(model));
+    }
 }

@@ -77,15 +77,10 @@ public class VocabularyListFragment extends Fragment implements VocabularyListVi
 
         mRvVocabularies.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        adapter = new VocabularyRecyclerViewAdapter(new ArrayList<VocabularyItemVM>(), mListener);
+        adapter = new VocabularyRecyclerViewAdapter(new ArrayList<>(), mListener);
 
         mRvVocabularies.setAdapter(adapter);
-        mFabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), PutVocabularyActivity.class));
-            }
-        });
+        mFabAdd.setOnClickListener(___ -> startActivity(new Intent(getContext(), PutVocabularyActivity.class)));
         return view;
     }
 

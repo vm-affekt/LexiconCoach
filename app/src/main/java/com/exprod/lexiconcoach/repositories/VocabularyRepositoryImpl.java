@@ -1,6 +1,7 @@
 package com.exprod.lexiconcoach.repositories;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import com.exprod.lexiconcoach.LexiconCoachApp;
@@ -10,7 +11,9 @@ import com.exprod.lexiconcoach.storage.meta.RunResultsMetaTable;
 import com.exprod.lexiconcoach.storage.meta.VocabulariesMetaTable;
 import com.exprod.lexiconcoach.viewmodels.PutVocabularyVM;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.operations.get.GetResolver;
 import com.pushtorefresh.storio.sqlite.queries.Query;
+import com.pushtorefresh.storio.sqlite.queries.RawQuery;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +28,8 @@ import rx.Single;
  */
 
 public class VocabularyRepositoryImpl implements VocabularyRepository {
+    private static final String LOG_TAG = "VOC_REPOSITORY";
+
     @Inject
     protected StorIOSQLite mStorIOSQLite;
 
@@ -60,7 +65,26 @@ public class VocabularyRepositoryImpl implements VocabularyRepository {
                         .build()
                 )
                 .prepare()
+
                 .asRxSingle();
+    }
+
+    @Override
+    public Single<Boolean> isVocabularyExists(String title){
+        return mStorIOSQLite.get()
+                .numberOfResults()
+                .withQuery(
+                    Query.builder()
+                            .table(VocabulariesMetaTable.TABLE_NAME)
+                            .columns("1")
+                            .where("lower(" + VocabulariesMetaTable.TITLE_COLUMN +") = ?")
+                            .whereArgs(title.toLowerCase())
+                            .build()
+                )
+                .prepare()
+                .asRxSingle()
+                .doOnError((ex) -> Log.d(LOG_TAG, "isVocabularyExists() throwed exception: " + ex.getMessage()))
+                .map(n -> n > 0);
     }
 
     @Override

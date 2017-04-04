@@ -24,4 +24,5 @@
     <string name="vocabulary_description_hint">Введите здесь краткое описание вашего словаря (Необязательно)</string>
     <string name="save_menu_item">Сохранить</string>
     <string name="empty_title_error_message">Поле \'Название\' не должно быть пустым!</string>
+    <string name="vocabulary_already_exists_error_format">Словарь с названием \'%s\' уже существует!</string>
 </resources>

@@ -112,6 +112,11 @@ public class PutVocabularyFragment extends Fragment implements PutVocabularyView
         Toast.makeText(getContext(), emptyTitleErrorMessage, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void showVocabularyExistsError(String vocabularyTitle) {
+        Toast.makeText(getContext(), getString(R.string.vocabulary_already_exists_error_format, vocabularyTitle), Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public String getTitleField() {
