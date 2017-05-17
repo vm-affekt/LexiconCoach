@@ -1,4 +1,4 @@
-package com.exprod.lexiconcoach.ui.fragments;
+package com.exprod.lexiconcoach.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,17 +7,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.exprod.lexiconcoach.R;
-import com.exprod.lexiconcoach.ui.fragments.VocabularyListFragment.OnListFragmentInteractionListener;
+import com.exprod.lexiconcoach.ui.fragments.VocabularyListFragment;
+import com.exprod.lexiconcoach.ui.fragments.VocabularyListFragment.OnVocabularyItemInteractionListener;
 import com.exprod.lexiconcoach.viewmodels.VocabularyItemVM;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<VocabularyRecyclerViewAdapter.ViewHolder> {
 
     private List<VocabularyItemVM> mItems;
-    private final OnListFragmentInteractionListener mListener;
+    private final VocabularyListFragment.OnVocabularyItemInteractionListener mListener;
 
-    public VocabularyRecyclerViewAdapter(List<VocabularyItemVM> items, OnListFragmentInteractionListener listener) {
+    public VocabularyRecyclerViewAdapter(List<VocabularyItemVM> items, OnVocabularyItemInteractionListener listener) {
         mItems = items;
         mListener = listener;
     }
@@ -47,10 +51,8 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    //mListener.onListFragmentInteraction(holder.mItem);
+                if (mListener != null) {
+                    mListener.onVocabularyItemClick(holder.mItem.getId());
                 }
             }
         });
@@ -68,23 +70,31 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mTvTitle;
-        public final TextView mTvLastRun;
-        public final TextView mTvCompletedPercent;
-        public final TextView mTvTotalWordsCount;
-        public final TextView mTvMistakesCount;
-        public final TextView mTvRunCount;
+        @BindView(R.id.tvTitle)
+        public TextView mTvTitle;
+        @BindView(R.id.tvLastRun)
+        public TextView mTvLastRun;
+        @BindView(R.id.tvCompletedPercent)
+        public TextView mTvCompletedPercent;
+        @BindView(R.id.tvTotalWordsCount)
+        public TextView mTvTotalWordsCount;
+        @BindView(R.id.tvMistakesCount)
+        public TextView mTvMistakesCount;
+        @BindView(R.id.tvRunCount)
+        public TextView mTvRunCount;
+
         public VocabularyItemVM mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
-            mTvLastRun = (TextView) view.findViewById(R.id.tvLastRun);
-            mTvCompletedPercent = (TextView) view.findViewById(R.id.tvCompletedPercent);
-            mTvTotalWordsCount = (TextView) view.findViewById(R.id.tvTotalWordsCount);
-            mTvMistakesCount = (TextView) view.findViewById(R.id.tvMistakesCount);
-            mTvRunCount = (TextView) view.findViewById(R.id.tvRunCount);
+            ButterKnife.bind(this, view);
+//            mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
+//            mTvLastRun = (TextView) view.findViewById(R.id.tvLastRun);
+//            mTvCompletedPercent = (TextView) view.findViewById(R.id.tvCompletedPercent);
+//            mTvTotalWordsCount = (TextView) view.findViewById(R.id.tvTotalWordsCount);
+//            mTvMistakesCount = (TextView) view.findViewById(R.id.tvMistakesCount);
+//            mTvRunCount = (TextView) view.findViewById(R.id.tvRunCount);
         }
     }
 }

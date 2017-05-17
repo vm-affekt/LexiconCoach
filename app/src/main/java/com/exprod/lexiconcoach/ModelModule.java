@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.exprod.lexiconcoach.mvpmodels.VocabularyMvpModel;
 import com.exprod.lexiconcoach.mvpmodels.VocabularyMvpModelImpl;
+import com.exprod.lexiconcoach.mvpmodels.WordMvpModel;
+import com.exprod.lexiconcoach.mvpmodels.WordMvpModelImpl;
 
 import javax.inject.Singleton;
 
@@ -21,5 +23,11 @@ public class ModelModule {
     @Singleton
     public VocabularyMvpModel provideVocabularyMvpModel(Context context){
         return new VocabularyMvpModelImpl(context);
+    }
+
+    @Provides
+    @Singleton
+    public WordMvpModel provideWordMvpModel(Context context){
+        return new WordMvpModelImpl(context);
     }
 }

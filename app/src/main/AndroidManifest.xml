@@ -25,6 +25,11 @@
             android:label="@string/title_activity_put_vocabulary"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".ui.activities.WordsEditActivity"
+            android:label="@string/title_activity_words_edit"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

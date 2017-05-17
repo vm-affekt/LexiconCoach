@@ -4,7 +4,9 @@ import android.content.Context;
 
 
 import com.exprod.lexiconcoach.ui.presenters.PutVocabularyPresenter;
+import com.exprod.lexiconcoach.ui.presenters.PutWordPresenter;
 import com.exprod.lexiconcoach.ui.presenters.VocabularyListPresenter;
+import com.exprod.lexiconcoach.ui.presenters.WordsEditPresenter;
 import com.exprod.lexiconcoach.ui.views.PutVocabularyView;
 
 import javax.inject.Singleton;
@@ -29,6 +31,20 @@ public class PresenterModule {
     public PutVocabularyPresenter providePutVocabularyPresenter(Context context){
         return new PutVocabularyPresenter(context);
     }
+
+    @Singleton
+    @Provides
+    public WordsEditPresenter provideWordsEditPresenter(Context context){
+        return new WordsEditPresenter(context);
+    }
+
+    @Singleton
+    @Provides
+    public PutWordPresenter providePutWordPresenter(Context context){
+        return new PutWordPresenter(context);
+    }
+
+    // TODO Провайдить остальные сущности (шедулеры и.т.д)...
 
     @Provides
     public CompositeSubscription provideCompositeSubscription(){

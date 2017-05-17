@@ -59,6 +59,7 @@ public class VocabularyMvpModelImpl implements VocabularyMvpModel {
                 .flatMapObservable(lst -> Observable.from(lst))
                 .concatMap(ve -> mRepository.getLastRunResultFor(ve.getId()).map(rre -> {
                     VocabularyItemVM item = new VocabularyItemVM();
+                    item.setId(ve.getId());
                     item.setTitle(ve.getTitle());
                     item.setTotalWordsCount(90);
                     if (rre != null){
@@ -72,6 +73,7 @@ public class VocabularyMvpModelImpl implements VocabularyMvpModel {
                         item.setMistakesCount(0);
                         item.setLastRunDateString(null);
                     }
+                    Log.d(LOG_TAG, "getVocabularyItems() : Vocabulary with id=" + item.getId() + " loaded!");
                     return item;
                 }).toObservable())
                 .toList();

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class PutVocabularyFragment extends Fragment implements PutVocabularyView
     public static final int LAYOUT = R.layout.fragment_put_vocabulary;
 
     public static final String ARG_VOCABULARY_ID = "VOCABULARY_ID";
+
+    private static final String LOG_TAG = "PUT_VOC_FRAG";
 
     @BindView(R.id.etTitle) protected EditText mEtTitle;
     @BindView(R.id.etDescription) protected EditText mEtDescription;

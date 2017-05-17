@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.exprod.lexiconcoach.repositories.VocabularyRepository;
 import com.exprod.lexiconcoach.repositories.VocabularyRepositoryImpl;
+import com.exprod.lexiconcoach.repositories.WordRepository;
+import com.exprod.lexiconcoach.repositories.WordRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -20,5 +22,11 @@ public class RepositoriesModule {
     @Provides
     public VocabularyRepository provideVocabularyRepository(Context context){
         return new VocabularyRepositoryImpl(context);
+    }
+
+    @Singleton
+    @Provides
+    public WordRepository provideWordRepository(Context context){
+        return new WordRepositoryImpl(context);
     }
 }

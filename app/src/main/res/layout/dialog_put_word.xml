@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/windowBackgroundLight">
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Слово на иностранном языке:"/>
+        <EditText
+            android:id="@+id/etForeignWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите слово..."
+            />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Слово на родном языке:"/>
+        <EditText
+            android:id="@+id/etNativeWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите перевод предыдущего слова..."/>
+    </LinearLayout>
+
+
+</LinearLayout>

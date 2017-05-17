@@ -25,4 +25,6 @@
     <string name="save_menu_item">Сохранить</string>
     <string name="empty_title_error_message">Поле \'Название\' не должно быть пустым!</string>
     <string name="vocabulary_already_exists_error_format">Словарь с названием \'%s\' уже существует!</string>
+    <string name="title_activity_words_edit">WordsEditActivity</string>
+    <string name="empty_word_fields_error_message">Все поля должны быть заполнены!</string>
 </resources>

@@ -5,10 +5,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 import com.exprod.lexiconcoach.mvpmodels.VocabularyWithLastRunResultEntity;
+import com.exprod.lexiconcoach.storage.entities.ForeignWordEntity;
+import com.exprod.lexiconcoach.storage.entities.ForeignWordEntitySQLiteTypeMapping;
+import com.exprod.lexiconcoach.storage.entities.NativeWordEntity;
+import com.exprod.lexiconcoach.storage.entities.NativeWordEntitySQLiteTypeMapping;
 import com.exprod.lexiconcoach.storage.entities.RunResultEntity;
 import com.exprod.lexiconcoach.storage.entities.RunResultEntitySQLiteTypeMapping;
 import com.exprod.lexiconcoach.storage.entities.VocabularyEntity;
 import com.exprod.lexiconcoach.storage.entities.VocabularyEntitySQLiteTypeMapping;
+import com.exprod.lexiconcoach.storage.entities.VocabularyToWordEntity;
+import com.exprod.lexiconcoach.storage.entities.VocabularyToWordEntitySQLiteTypeMapping;
+import com.exprod.lexiconcoach.storage.entities.WordTranslationEntity;
+import com.exprod.lexiconcoach.storage.entities.WordTranslationEntitySQLiteTypeMapping;
 import com.exprod.lexiconcoach.storage.resolvers.VocabularyWithLastRunResultGetResolver;
 import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
@@ -39,6 +47,10 @@ public class DbModule {
                 .sqliteOpenHelper(sqLiteOpenHelper)
                 .addTypeMapping(VocabularyEntity.class, vocabularyEntitySQLiteTypeMapping)
                 .addTypeMapping(RunResultEntity.class, new RunResultEntitySQLiteTypeMapping())
+                .addTypeMapping(ForeignWordEntity.class, new ForeignWordEntitySQLiteTypeMapping())
+                .addTypeMapping(NativeWordEntity.class, new NativeWordEntitySQLiteTypeMapping())
+                .addTypeMapping(VocabularyToWordEntity.class, new VocabularyToWordEntitySQLiteTypeMapping())
+                .addTypeMapping(WordTranslationEntity.class, new WordTranslationEntitySQLiteTypeMapping())
 //                .addTypeMapping(VocabularyWithLastRunResultEntity.class, SQLiteTypeMapping.<VocabularyWithLastRunResultEntity>builder()
 //                        .putResolver(null)
 //                        .getResolver(new VocabularyWithLastRunResultGetResolver(vocabularyEntityGetResolver))

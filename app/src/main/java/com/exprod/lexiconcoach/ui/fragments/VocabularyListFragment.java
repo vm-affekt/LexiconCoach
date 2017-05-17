@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import com.exprod.lexiconcoach.LexiconCoachApp;
 import com.exprod.lexiconcoach.R;
 import com.exprod.lexiconcoach.ui.activities.PutVocabularyActivity;
+import com.exprod.lexiconcoach.ui.activities.WordsEditActivity;
+import com.exprod.lexiconcoach.ui.adapters.VocabularyRecyclerViewAdapter;
 import com.exprod.lexiconcoach.ui.presenters.VocabularyListPresenter;
 import com.exprod.lexiconcoach.ui.views.VocabularyListView;
 import com.exprod.lexiconcoach.viewmodels.VocabularyItemVM;
@@ -29,15 +32,17 @@ import butterknife.ButterKnife;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnVocabularyItemInteractionListener}
  * interface.
  */
 public class VocabularyListFragment extends Fragment implements VocabularyListView {
+    private static final String LOG_TAG = "VOC_LIST_FRAG";
+
     public static final int TITLE_RES_ID = R.string.vocabularies_tab;
     public static final int POSITION_IN_SECTION = 0;
     public static final int LAYOUT = R.layout.fragment_vocabularies;
 
-    private OnListFragmentInteractionListener mListener;
+    private OnVocabularyItemInteractionListener mListener;
 
     @BindView(R.id.rvVocabularies) protected RecyclerView mRvVocabularies;
 
@@ -77,6 +82,13 @@ public class VocabularyListFragment extends Fragment implements VocabularyListVi
 
         mRvVocabularies.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        mListener = vocabularyId -> {
+            Intent intent = new Intent(getActivity(), WordsEditActivity.class);
+            Log.d(LOG_TAG, "Vocabulary with id=" + vocabularyId + " was clicked!");
+            intent.putExtra(WordsEditFragment.ARG_VOCABULARY_ID, vocabularyId);
+            startActivity(intent);
+        };
+
         adapter = new VocabularyRecyclerViewAdapter(new ArrayList<>(), mListener);
 
         mRvVocabularies.setAdapter(adapter);
@@ -93,11 +105,11 @@ public class VocabularyListFragment extends Fragment implements VocabularyListVi
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
+//        if (context instanceof OnVocabularyItemInteractionListener) {
+//            mListener = (OnVocabularyItemInteractionListener) context;
 //        } else {
 //            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
+//                    + " must implement OnVocabularyItemInteractionListener");
 //        }
     }
 
@@ -128,8 +140,7 @@ public class VocabularyListFragment extends Fragment implements VocabularyListVi
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        //void onListFragmentInteraction(DummyItem item);
+    public interface OnVocabularyItemInteractionListener {
+        void onVocabularyItemClick(Long vocabularyId);
     }
 }
