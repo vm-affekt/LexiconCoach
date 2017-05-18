@@ -45,64 +45,81 @@ public class WordsForVocabularyPutResolver extends PutResolver<WordTranslationSp
                     )
                     .prepare()
                     .executeAsBlocking();
-            ForeignWordEntity foreignWord =
-                    storIOSQLite.get()
-                    .object(ForeignWordEntity.class)
-                    .withQuery(ForeignWordsMetaTable.buildQueryFindById(wordTranslation.getForeignWordId()))
+
+            Integer foreignWordCount = storIOSQLite.get()
+                    .numberOfResults()
+                    .withQuery(WordTranslationsMetaTable.buildQueryGetCountOfForeignWord(wordTranslation.getForeignWordId()))
                     .prepare()
                     .executeAsBlocking();
-            NativeWordEntity nativeWord =
-                    storIOSQLite.get()
-                    .object(NativeWordEntity.class)
-                    .withQuery(NativeWordsMetaTable.buildQueryFindById(wordTranslation.getNativeWordId()))
+            ForeignWordEntity foreignWord;
+            if (foreignWordCount == 1){
+                 foreignWord = storIOSQLite.get()
+                        .object(ForeignWordEntity.class)
+                        .withQuery(ForeignWordsMetaTable.buildQueryFindById(wordTranslation.getForeignWordId()))
+                        .prepare()
+                        .executeAsBlocking();
+                foreignWord.setWordName(object.getForeignWord());
+                putObject(storIOSQLite, foreignWord);
+            }else{
+                foreignWord = ForeignWordEntity.newInstance(object.getForeignWord());
+                Long insertedId = putObject(storIOSQLite, foreignWord);
+                wordTranslation.setForeignWordId(insertedId);
+            }
+
+            Integer nativeWordCount = storIOSQLite.get()
+                    .numberOfResults()
+                    .withQuery(WordTranslationsMetaTable.buildQueryGetCountOfNativeWord(wordTranslation.getNativeWordId()))
                     .prepare()
                     .executeAsBlocking();
-            foreignWord.setWordName(object.getForeignWord());
-            nativeWord.setWordName(object.getNativeWord());
-            List<Object> wordsToUpdate = asList(foreignWord, nativeWord);
-            storIOSQLite.put()
-                    .objects(wordsToUpdate)
-                    .prepare()
-                    .executeAsBlocking();
-            Set<String> affectedTables = new HashSet<>(2);
+            NativeWordEntity nativeWord;
+            if (nativeWordCount == 1){
+                nativeWord = storIOSQLite.get()
+                        .object(NativeWordEntity.class)
+                        .withQuery(NativeWordsMetaTable.buildQueryFindById(wordTranslation.getNativeWordId()))
+                        .prepare()
+                        .executeAsBlocking();
+                nativeWord.setWordName(object.getNativeWord());
+                putObject(storIOSQLite, nativeWord);
+            }else{
+                nativeWord = NativeWordEntity.newInstance(object.getNativeWord());
+                Long insertedId = putObject(storIOSQLite, nativeWord);
+                wordTranslation.setNativeWordId(insertedId);
+            }
+            Set<String> affectedTables = new HashSet<>(3);
+
+            if ((foreignWordCount > 1) || (nativeWordCount > 1)) {
+                putObject(storIOSQLite, wordTranslation);
+                affectedTables.add(WordTranslationsMetaTable.TABLE_NAME);
+            }
+
             affectedTables.add(ForeignWordsMetaTable.TABLE_NAME);
             affectedTables.add(NativeWordsMetaTable.TABLE_NAME);
 
-            return PutResult.newUpdateResult(2, affectedTables);
+            return PutResult.newUpdateResult(affectedTables.size(), affectedTables);
 
 
         }else{
             Long foreignWordId = null;
-            ForeignWordEntity foreignWord =
-                    storIOSQLite.get()
+            ForeignWordEntity foreignWord = storIOSQLite.get()
                     .object(ForeignWordEntity.class)
                     .withQuery(ForeignWordsMetaTable.buildQueryFindByName(object.getForeignWord()))
                     .prepare()
                     .executeAsBlocking();
             if (foreignWord == null){
                 foreignWord = ForeignWordEntity.newInstance(object.getForeignWord());
-                foreignWordId = storIOSQLite.put()
-                        .object(foreignWord)
-                        .prepare()
-                        .executeAsBlocking()
-                        .insertedId();
+                foreignWordId = putObject(storIOSQLite, foreignWord);
             }else{
                 foreignWordId = foreignWord.getId();
             }
             Long nativeWordId = null;
-            NativeWordEntity nativeWord =
-                    storIOSQLite.get()
+            NativeWordEntity nativeWord = storIOSQLite.get()
                     .object(NativeWordEntity.class)
                     .withQuery(NativeWordsMetaTable.buildQueryFindByName(object.getNativeWord()))
                     .prepare()
                     .executeAsBlocking();
             if (nativeWord == null){
                 nativeWord = NativeWordEntity.newInstance(object.getNativeWord());
-                nativeWordId = storIOSQLite.put()
-                        .object(nativeWord)
-                        .prepare()
-                        .executeAsBlocking()
-                        .insertedId();
+                nativeWordId = putObject(storIOSQLite, nativeWord);
             }else{
                 nativeWordId = nativeWord.getId();
             }
@@ -121,5 +138,13 @@ public class WordsForVocabularyPutResolver extends PutResolver<WordTranslationSp
 
             return PutResult.newInsertResult(translationId, affectedTables);
         }
+    }
+
+    private Long putObject(@NonNull StorIOSQLite storIOSQLite, Object object) {
+        return storIOSQLite.put()
+                .object(object)
+                .prepare()
+                .executeAsBlocking()
+                .insertedId();
     }
 }

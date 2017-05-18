@@ -17,7 +17,13 @@ public class WordTranslationsMetaTable {
 
     public static final String MISTAKE_COUNT_COLUMN = "MistakeCount";
 
-
+    private static Query buildQueryGetTranslations(Long wordId, String wordColumnName){
+        return Query.builder()
+                .table(TABLE_NAME)
+                .where(wordColumnName + "=?")
+                .whereArgs(wordId)
+                .build();
+    }
 
     public static RawQuery buildQueryAllForVocabulary(Long vocabularyId){
         return RawQuery.builder()
@@ -31,6 +37,14 @@ public class WordTranslationsMetaTable {
                 .query(WordsForVocabularyGetResolver.TEXT_QUERY_GET_BY_ID)
                 .args(translationId)
                 .build();
+    }
+
+    public static Query buildQueryGetCountOfForeignWord(Long foreignWordId){
+        return buildQueryGetTranslations(foreignWordId, FOREIGN_WORD_ID_COLUMN);
+    }
+
+    public static Query buildQueryGetCountOfNativeWord(Long nativeWordId){
+        return buildQueryGetTranslations(nativeWordId, NATIVE_WORD_ID_COLUMN);
     }
 
     public static String getCreateTableQuery(){

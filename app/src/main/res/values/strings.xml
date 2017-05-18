@@ -27,4 +27,8 @@
     <string name="vocabulary_already_exists_error_format">Словарь с названием \'%s\' уже существует!</string>
     <string name="title_activity_words_edit">WordsEditActivity</string>
     <string name="empty_word_fields_error_message">Все поля должны быть заполнены!</string>
+    <string name="save_button">Сохранить</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="edit_translation_dialog_title">Редактирование перевода</string>
+    <string name="add_translation_dialog_title">Добавление нового перевода</string>
 </resources>

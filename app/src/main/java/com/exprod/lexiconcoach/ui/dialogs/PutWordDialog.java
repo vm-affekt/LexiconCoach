@@ -126,14 +126,17 @@ public class PutWordDialog extends DialogFragment implements PutWordView {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_put_word, null);
         ButterKnife.bind(this, dialogView);
-        builder.setView(dialogView)
-                .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+        String title = isEditMode() ? getString(R.string.edit_translation_dialog_title)
+                                    : getString(R.string.add_translation_dialog_title);
+        builder.setTitle(title)
+                .setView(dialogView)
+                .setPositiveButton(getString(R.string.save_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
