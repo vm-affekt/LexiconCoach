@@ -89,12 +89,6 @@ public class VocabularyRecyclerViewAdapter extends RecyclerView.Adapter<Vocabula
             super(view);
             mView = view;
             ButterKnife.bind(this, view);
-//            mTvTitle = (TextView) view.findViewById(R.id.tvTitle);
-//            mTvLastRun = (TextView) view.findViewById(R.id.tvLastRun);
-//            mTvCompletedPercent = (TextView) view.findViewById(R.id.tvCompletedPercent);
-//            mTvTotalWordsCount = (TextView) view.findViewById(R.id.tvTotalWordsCount);
-//            mTvMistakesCount = (TextView) view.findViewById(R.id.tvMistakesCount);
-//            mTvRunCount = (TextView) view.findViewById(R.id.tvRunCount);
         }
     }
 }

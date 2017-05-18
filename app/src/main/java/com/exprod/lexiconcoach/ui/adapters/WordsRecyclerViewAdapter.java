@@ -1,6 +1,7 @@
 package com.exprod.lexiconcoach.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
  */
 
 public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecyclerViewAdapter.ViewHolder> {
+    private static final String LOG_TAG = "WORDS_RV_ADAPTER";
 
     private List<WordVM> mItems;
 
@@ -59,6 +61,7 @@ public class WordsRecyclerViewAdapter extends RecyclerView.Adapter<WordsRecycler
 
     public void setItems(List<WordVM> items){
         mItems = items;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

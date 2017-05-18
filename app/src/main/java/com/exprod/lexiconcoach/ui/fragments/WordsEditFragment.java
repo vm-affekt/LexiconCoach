@@ -47,11 +47,12 @@ public class WordsEditFragment extends Fragment implements WordsEditView {
 
     private Long mVocabularyId;
 
-    private OnWordItemInteractionListener mListener;
+    private OnWordItemInteractionListener mWordClickListener;
 
     private final PutWordDialog.PutWordDialogInteractionListener mPutWordDialogInteractionListener = new PutWordDialog.PutWordDialogInteractionListener() {
         @Override
         public void onDismiss() {
+            Log.d(LOG_TAG, "onDismiss()");
             requestWordList();
         }
     };
@@ -72,20 +73,20 @@ public class WordsEditFragment extends Fragment implements WordsEditView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
 
-        mListener = new OnWordItemInteractionListener() {
+        mWordClickListener = new OnWordItemInteractionListener() {
             @Override
             public void onWordItemClick(Long translationId) {
-                PutWordDialog dialog = PutWordDialog.newInstance(mVocabularyId, translationId);
-                dialog.show(getFragmentManager(), PutWordDialog.TAG);
+                showAddEditDialog(translationId);
             }
         };
-        adapter = new WordsRecyclerViewAdapter(new ArrayList<WordVM>(), mListener);
+        adapter = new WordsRecyclerViewAdapter(new ArrayList<WordVM>(), mWordClickListener);
         ButterKnife.bind(this, view);
 
 
         mRvWords.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mRvWords.addItemDecoration(new DividerItemDecoration(mRvWords.getContext(), LinearLayoutManager.VERTICAL)); // TODO проверить поддержку на платформах API<25
         mRvWords.setAdapter(adapter);
+        requestWordList();
         return view;
     }
 
@@ -93,7 +94,7 @@ public class WordsEditFragment extends Fragment implements WordsEditView {
     public void onResume() {
         super.onResume();
         Log.d(LOG_TAG, "onResume() called...");
-        requestWordList();
+        //requestWordList();
     }
 
     @Override
@@ -126,6 +127,7 @@ public class WordsEditFragment extends Fragment implements WordsEditView {
 
     @Override
     public void setWordList(List<WordVM> wordList) {
+        Log.d(LOG_TAG, wordList.toString());
         adapter.setItems(wordList);
     }
 

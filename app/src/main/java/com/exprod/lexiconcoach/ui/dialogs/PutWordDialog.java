@@ -109,8 +109,11 @@ public class PutWordDialog extends DialogFragment implements PutWordView {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
+        Log.d(LOG_TAG, "onDismiss() called...");
         if (mListener != null){
             mListener.onDismiss();
+        }else{
+            Log.w(LOG_TAG, "mListener is null!");
         }
     }
 
@@ -124,10 +127,10 @@ public class PutWordDialog extends DialogFragment implements PutWordView {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.dialog_put_word, null);
-        ButterKnife.bind(this, dialogView);
         String title = isEditMode() ? getString(R.string.edit_translation_dialog_title)
                                     : getString(R.string.add_translation_dialog_title);
+        final View dialogView = inflater.inflate(R.layout.dialog_put_word, null);
+        ButterKnife.bind(this, dialogView);
         builder.setTitle(title)
                 .setView(dialogView)
                 .setPositiveButton(getString(R.string.save_button), new DialogInterface.OnClickListener() {
@@ -196,6 +199,7 @@ public class PutWordDialog extends DialogFragment implements PutWordView {
 
     @Override
     public void onWordSaved() {
+        Log.d(LOG_TAG, "onWordSaved() called...");
         dismiss();
     }
 

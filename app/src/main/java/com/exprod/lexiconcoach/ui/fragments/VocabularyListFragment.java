@@ -127,7 +127,6 @@ public class VocabularyListFragment extends Fragment implements VocabularyListVi
     @Override
     public void setList(List<VocabularyItemVM> list) {
         adapter.setItems(list);
-
     }
 
     /**

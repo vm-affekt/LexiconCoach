@@ -65,4 +65,13 @@ public class WordVM {
     public void setTranslationWord(String translationWord) {
         this.mTranslationWord = translationWord;
     }
+
+    @Override
+    public String toString() {
+        return "WordVM{" +
+                "mTranslationId=" + mTranslationId +
+                ", mNativeWord='" + mNativeWord + '\'' +
+                ", mTranslationWord='" + mTranslationWord + '\'' +
+                '}';
+    }
 }
